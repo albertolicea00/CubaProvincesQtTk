@@ -1,19 +1,17 @@
+"""Municipalities of Matanzas, Cuba."""
 
-
-municipality_Matanzas = [ 
-		
-		"Calimete" , 
-		"Cárdenas" , 
-		"Ciénaga de Zapata" , 
-		"Colón" , 
-		"Jagüey Grande" , 
-		"Jovellanos" , 
-		"Limonar" , 
-		"Los Arabos" , 
-		"Martí" , 
-		"Matanzas" , 
-		"Pedro Betancourt" , 
-		"Perico" , 
-		"Unión de Reyes" 
+municipality_Matanzas = [
+    "Calimete",
+    "Cárdenas",
+    "Ciénaga de Zapata",
+    "Colón",
+    "Jagüey Grande",
+    "Jovellanos",
+    "Limonar",
+    "Los Arabos",
+    "Martí",
+    "Matanzas",
+    "Pedro Betancourt",
+    "Perico",
+    "Unión de Reyes",
 ]
-	

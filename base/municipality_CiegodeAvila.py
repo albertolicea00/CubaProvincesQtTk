@@ -1,15 +1,14 @@
+"""Municipalities of Ciego de Ávila, Cuba."""
 
-
-municipality_CiegodeAvila = [ 
-		
-		"Baraguá" , 
-		"Bolivia" , 
-		"Chambas" , 
-		"Ciego de Ávila" , 
-		"Ciro Redondo" , 
-		"Florencia" , 
-		"Majagua" , 
-		"Morón" , 
-		"Primero de Enero" , 
-		"Venezuela" 
+municipality_CiegodeAvila = [
+    "Baraguá",
+    "Bolivia",
+    "Chambas",
+    "Ciego de Ávila",
+    "Ciro Redondo",
+    "Florencia",
+    "Majagua",
+    "Morón",
+    "Primero de Enero",
+    "Venezuela",
 ]
