@@ -24,6 +24,28 @@ class CubaProvinces_BoxGroup():
     def __init__(self, provinceBox=None, municipalityBox=None, parent=None, allignment="row"):
         self.__repository = Provinces_Municipaly()
 
+        # Per-province municipality lists, ordered to match the province combo
+        # box (same order as repository.provinces and the __linkTogether
+        # index). Used to resolve a municipality back to its province.
+        self.__municipalityByIndex = [
+            self.__repository.IsladelaJuventud,
+            self.__repository.PinardelRio,
+            self.__repository.Artemisa,
+            self.__repository.LaHabana,
+            self.__repository.Mayabeque,
+            self.__repository.Matanzas,
+            self.__repository.Cienfuegos,
+            self.__repository.VillaClara,
+            self.__repository.SanctiSpiritus,
+            self.__repository.CiegodeAvila,
+            self.__repository.Camaguey,
+            self.__repository.LasTunas,
+            self.__repository.Granma,
+            self.__repository.Holguin,
+            self.__repository.SantiagodeCuba,
+            self.__repository.Guantanamo,
+        ]
+
         self.__provinceBox = provinceBox
         self.__municipalityBox = municipalityBox
 
@@ -125,13 +147,52 @@ class CubaProvinces_BoxGroup():
         elif province_opt == 15:
             self.__municipalityBox.addItems(self.__repository.Guantanamo)
 
-    # TODO: add setter/getter so a single municipality can be passed in and
-    # drawn directly.
-    #
-    # @property
-    # def selected():
-    #     pass
-    #
-    # @selected.setter
-    # def selected():
-    #     pass
+    @property
+    def selected(self):
+        """Current selection as a ``(province, municipality)`` tuple.
+
+        Either element is ``None`` when its combo box is absent or empty.
+        """
+        province = self.__provinceBox.currentText() if self.__provinceBox is not None else None
+        municipality = self.__municipalityBox.currentText() if self.__municipalityBox is not None else None
+        return (province or None, municipality or None)
+
+    @selected.setter
+    def selected(self, municipality):
+        """Select a municipality by name and draw it directly.
+
+        Resolves the province that owns ``municipality``, selects it in the
+        province box (which refills the municipality box), then selects the
+        municipality itself. Requires a municipality box.
+
+        Raises:
+            RuntimeError: if there is no municipality box to draw into.
+            ValueError: if ``municipality`` is not found in any province.
+        """
+        if self.__municipalityBox is None:
+            raise RuntimeError("selected setter requires a municipality box")
+
+        index = self.__provinceIndexForMunicipality(municipality)
+        if index is None:
+            raise ValueError(f"unknown municipality: {municipality!r}")
+
+        if self.__provinceBox is not None:
+            # setCurrentIndex fires __linkTogether only when the index actually
+            # changes; refill explicitly so the list is correct either way.
+            self.__provinceBox.setCurrentIndex(index)
+            self.__linkTogether(index)
+        else:
+            self.__municipalityBox.clear()
+            self.__municipalityBox.addItems(self.__municipalityByIndex[index])
+
+        self.__municipalityBox.setCurrentText(municipality)
+
+    def __provinceIndexForMunicipality(self, municipality):
+        """Return the province index that contains ``municipality``.
+
+        Returns the first match, or ``None`` if no province lists it.
+        """
+        for index, municipalities in enumerate(self.__municipalityByIndex):
+            if municipality in municipalities:
+                return index
+        return None
