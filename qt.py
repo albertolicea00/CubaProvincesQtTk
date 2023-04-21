@@ -52,7 +52,7 @@ class CubaProvinces_BoxGroup():
             self.__provinceBox.addItems(self.__repository.provinces)
 
         elif self.__municipalityBox is not None and self.__provinceBox is None:
-            self.__municipalityBox.addItems(self.__repository.municipaly)
+            self.__municipalityBox.addItems(self.__repository.municipality)
 
     def __validateParent(self, parent):
         """Build the combo boxes when a parent widget is supplied."""
