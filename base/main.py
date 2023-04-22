@@ -33,11 +33,9 @@ class Provinces_Municipaly():
     def __init__(self):
         # Full province set, ordered west -> east. Maps the display name shown
         # in the combo box to the municipality list imported from its module.
-        # NOTE: the "Isla de la Juventud**" key keeps its trailing "**" marker;
-        # it is what the province combo box actually displays.
         self.__provinces = {
 
-            "Isla de la Juventud**": municipality_IsladelaJuventud,
+            "Isla de la Juventud": municipality_IsladelaJuventud,
             "Pinar del Rio": municipality_PinardelRio,
             "Artemisa": municipality_Artemisa,
             "La Habana": municipality_LaHabana,
@@ -86,11 +84,7 @@ class Provinces_Municipaly():
 
     @property
     def municipality(self):
-        """Every municipality across all provinces, as one flat list.
-
-        FIXME: indexes "Isla de la Juventud" but the dict key is
-        "Isla de la Juventud**", so this raises KeyError as written.
-        """
+        """Every municipality across all provinces, as one flat list."""
         return    self.__provinces["Isla de la Juventud"]    \
                 + self.__provinces["Pinar del Rio"]           \
                 + self.__provinces["Artemisa"]                \
@@ -115,7 +109,7 @@ class Provinces_Municipaly():
     @property
     def IsladelaJuventud(self):
         """Municipalities of Isla de la Juventud."""
-        return self.__provinces["Isla de la Juventud**"]
+        return self.__provinces["Isla de la Juventud"]
 
     @property
     def PinardelRio(self):
