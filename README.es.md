@@ -10,9 +10,6 @@ Dos listas desplegables enlazadas para elegir una **provincia** cubana y su
 **municipio**: al seleccionar una provincia en el primer cuadro, el segundo se
 rellena automáticamente con los municipios de esa provincia.
 
-![Captura.tk](./example/screenshot.tk.png)
-![Captura.qt](./example/screenshot.qt.png)
-
 Se distribuye en **dos implementaciones intercambiables** con la misma API:
 
 | Implementación | Módulo | Toolkit | Dependencia |

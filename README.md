@@ -10,9 +10,6 @@ Two linked dropdowns for picking a Cuban **province** and its **municipality**:
 select a province in the first box and the second auto-populates with that
 province's municipalities.
 
-![Screenshot.tk](./example/screenshot.tk.png)
-![Screenshot.qt](./example/screenshot.qt.png)
-
 Ships in **two interchangeable implementations** with the same public API:
 
 | Implementation | Module | Widget toolkit | Dependency |
