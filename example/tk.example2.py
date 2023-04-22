@@ -4,12 +4,19 @@ Instead of creating the comboboxes yourself, pass a ``parent`` widget and an
 ``allignment``. ``CubaProvinces_BoxGroup`` then creates, positions, fills, and
 links both comboboxes for you.
 
-Run with:  python tk.example2.py
+Run with:  python example/tk.example2.py
 """
 
 # Standard library GUI toolkit. No ttk import here: in Mode B the group builds
 # the comboboxes itself.
 import tkinter
+
+# tk.py lives in the project root, one level up from this example/ folder. Put
+# that root on sys.path so "from tk import ..." resolves when this script is
+# run directly (e.g. python example/tk.example2.py).
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # The helper class under test; imported by name from tk.py (not "import *").
 from tk import CubaProvinces_BoxGroup

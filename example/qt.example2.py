@@ -4,12 +4,19 @@ Instead of creating the combo boxes yourself, pass a ``parent`` widget and an
 ``allignment``. ``CubaProvinces_BoxGroup`` then creates, positions, fills, and
 links both combo boxes for you.
 
-Run with:  python qt.example2.py
+Run with:  python example/qt.example2.py
 """
 
 # Import only the widgets this example actually uses (no wildcard imports).
 # Note there is no QComboBox here: in Mode B the group builds the boxes itself.
 from PyQt5.QtWidgets import QApplication, QMainWindow
+
+# qt.py lives in the project root, one level up from this example/ folder. Put
+# that root on sys.path so "from qt import ..." resolves when this script is
+# run directly (e.g. python example/qt.example2.py).
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # The helper class under test; imported by name instead of "from qt import *".
 from qt import CubaProvinces_BoxGroup

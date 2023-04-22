@@ -4,7 +4,7 @@ You create the province and municipality combo boxes yourself, then hand both
 to ``CubaProvinces_BoxGroup``. The group fills the province box and links the
 municipality box so it refreshes every time the selected province changes.
 
-Run with:  python qt.example1.py
+Run with:  python example/qt.example1.py
 """
 
 # Import only the widgets this example actually uses (no wildcard imports):
@@ -12,6 +12,13 @@ Run with:  python qt.example1.py
 #   QMainWindow  - the top-level window
 #   QComboBox    - the two dropdowns we fill
 from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox
+
+# qt.py lives in the project root, one level up from this example/ folder. Put
+# that root on sys.path so "from qt import ..." resolves when this script is
+# run directly (e.g. python example/qt.example1.py).
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # The helper class under test; imported by name instead of "from qt import *".
 from qt import CubaProvinces_BoxGroup
