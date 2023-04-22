@@ -1,98 +1,80 @@
-# CubaProvincesQt
+# CubaProvincesQtTk
 
 > 🌐 **English** · [Español](README.es.md)
 
-Two linked PyQt5 combo boxes for picking a Cuban **province** and its **municipality**. Select a province in the first box and the second box auto-populates with that province's municipalities.
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)
+![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-41CD52?style=flat-square&logo=qt&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Tkinter-stdlib-FF6F00?style=flat-square)
 
-Ships with all 16 provinces and their municipalities (Spanish names, with accents).
+Two linked dropdowns for picking a Cuban **province** and its **municipality**:
+select a province in the first box and the second auto-populates with that
+province's municipalities.
+
+![Screenshot.tk](./example/screenshot.tk.png)
+![Screenshot.qt](./example/screenshot.qt.png)
+
+Ships in **two interchangeable implementations** with the same public API:
+
+| Implementation | Module | Widget toolkit | Dependency |
+|----------------|--------|----------------|------------|
+| PyQt5 | [qt.py](qt.py) | `PyQt5.QtWidgets.QComboBox` | `PyQt5` |
+| Tkinter | [tk.py](tk.py) | `tkinter.ttk.Combobox` | standard library |
 
 ## Requirements
 
 - Python 3.x
-- [PyQt5](https://pypi.org/project/PyQt5/) (`>=5.15`)
+- **PyQt5 version:** [PyQt5](https://pypi.org/project/PyQt5/) (`>=5.15`) — `pip install -r requirements.txt`
+- **Tkinter version:** no extra install, but your Python must be built with Tk
+  support (`python -c "import tkinter"` must succeed).
 
-## Installation
+### Environment check
+
+Confirm the toolkit you want is available before running:
 
 ```bash
-pip install -r requirements.txt
+./testqt.sh   # checks PyQt5 is installed
+./testtk.sh   # checks Tkinter (Tk) support
 ```
 
-## Usage
+Both accept a `PYTHON` override, e.g. `PYTHON=/usr/bin/python3 ./testtk.sh`.
 
-Import `CubaProvinces_BoxGroup` from `qt` and call `exec()`. Two modes:
+## Examples
 
-### Mode A — bring your own combo boxes
+The usage is documented inline in the [example/](example/) scripts:
 
-Pass two existing `QComboBox` widgets. The group fills the province box and links the municipality box to it.
+| Script | Toolkit | Mode |
+|--------|---------|------|
+| [example/qt.example1.py](example/qt.example1.py) | PyQt5 | caller-managed boxes |
+| [example/qt.example2.py](example/qt.example2.py) | PyQt5 | group-built boxes |
+| [example/tk.example1.py](example/tk.example1.py) | Tkinter | caller-managed boxes |
+| [example/tk.example2.py](example/tk.example2.py) | Tkinter | group-built boxes |
 
-```python
-from PyQt5.QtWidgets import *
-from qt import *
+Run them **from the project root** so the `from qt`/`from tk` imports resolve:
 
-app = QApplication([])
-root = QMainWindow()
-
-cb_provinces = QComboBox(root)
-cb_municipality = QComboBox(root)
-cb_provinces.setGeometry(0, 0, 200, 30)
-cb_municipality.setGeometry(0, 32, 200, 30)
-
-a = CubaProvinces_BoxGroup(provinceBox=cb_provinces, municipalityBox=cb_municipality)
-a.exec()
-
-root.show()
-app.exec_()
+```bash
+python example/qt.example1.py
+python example/qt.example2.py
+python example/tk.example1.py
+python example/tk.example2.py
 ```
-
-### Mode B — let the group build the boxes
-
-Pass a `parent` widget and an `allignment`; the group creates and positions both combo boxes for you.
-
-```python
-from PyQt5.QtWidgets import *
-from qt import *
-
-app = QApplication([])
-root = QMainWindow()
-
-a = CubaProvinces_BoxGroup(parent=root, allignment="row")
-a.exec()
-
-root.show()
-app.exec_()
-```
-
-See [qt.example1.py](qt.example1.py) (Mode A) and [qt.example2.py](qt.example2.py) (Mode B).
-
-## API
-
-### `CubaProvinces_BoxGroup(provinceBox=None, municipalityBox=None, parent=None, allignment="row")`
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `provinceBox` | `QComboBox` | Existing box for provinces (Mode A). |
-| `municipalityBox` | `QComboBox` | Existing box for municipalities (Mode A). |
-| `parent` | `QWidget` | Parent widget; if set, the group builds both boxes (Mode B). |
-| `allignment` | `str` | `"row"` (stacked) or `"column"` (side by side). Only used in Mode B. |
-
-- `exec()` / `exec_()` — populate the province box and wire the province→municipality link.
-
-Behavior by argument combination:
-
-- both boxes set → provinces filled, municipality box linked to province selection.
-- only `provinceBox` → provinces filled, no link.
-- only `municipalityBox` → the full flat municipality list is filled.
 
 ## Provinces included
 
-Isla de la Juventud, Pinar del Río, Artemisa, La Habana, Mayabeque, Matanzas, Cienfuegos, Villa Clara, Sancti Spíritus, Ciego de Ávila, Camagüey, Las Tunas, Granma, Holguín, Santiago de Cuba, Guantánamo.
+<kbd>Isla de la Juventud</kbd> <kbd>Pinar del Río</kbd> <kbd>Artemisa</kbd> <kbd>La Habana</kbd> <kbd>Mayabeque</kbd> <kbd>Matanzas</kbd> <kbd>Cienfuegos</kbd> <kbd>Villa Clara</kbd> <kbd>Sancti Spíritus</kbd> <kbd>Ciego de Ávila</kbd> <kbd>Camagüey</kbd> <kbd>Las Tunas</kbd> <kbd>Granma</kbd> <kbd>Holguín</kbd> <kbd>Santiago de Cuba</kbd> <kbd>Guantánamo</kbd>
 
 ## Project structure
 
 ```
-qt.py            CubaProvinces_BoxGroup (the public class)
+qt.py            CubaProvinces_BoxGroup (PyQt5 implementation)
+tk.py            CubaProvinces_BoxGroup (Tkinter implementation)
 base/main.py     Provinces_Municipaly repository (province → municipality data)
 base/municipality_*.py   one municipality list per province
-qt.example1.py   Mode A example
-qt.example2.py   Mode B example
+example/         Mode A / Mode B example scripts for both toolkits
+testqt.sh        PyQt5 availability check
+testtk.sh        Tkinter availability check
+requirements.txt PyQt5 dependency pin
 ```
+
+---
+
+Created by [@albertolicea00](https://github.com/albertolicea00)

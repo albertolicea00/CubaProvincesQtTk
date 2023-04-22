@@ -1,98 +1,81 @@
-# CubaProvincesQt
+# CubaProvincesQtTk
 
 > 🌐 [English](README.md) · **Español**
 
-Dos cuadros combinados (combo boxes) de PyQt5 enlazados para elegir una **provincia** cubana y su **municipio**. Al seleccionar una provincia en el primer cuadro, el segundo se rellena automáticamente con los municipios de esa provincia.
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)
+![PyQt5](https://img.shields.io/badge/PyQt5-5.15+-41CD52?style=flat-square&logo=qt&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Tkinter-stdlib-FF6F00?style=flat-square)
 
-Incluye las 16 provincias y sus municipios (nombres en español, con acentos).
+Dos listas desplegables enlazadas para elegir una **provincia** cubana y su
+**municipio**: al seleccionar una provincia en el primer cuadro, el segundo se
+rellena automáticamente con los municipios de esa provincia.
+
+![Captura.tk](./example/screenshot.tk.png)
+![Captura.qt](./example/screenshot.qt.png)
+
+Se distribuye en **dos implementaciones intercambiables** con la misma API:
+
+| Implementación | Módulo | Toolkit | Dependencia |
+|----------------|--------|---------|-------------|
+| PyQt5 | [qt.py](qt.py) | `PyQt5.QtWidgets.QComboBox` | `PyQt5` |
+| Tkinter | [tk.py](tk.py) | `tkinter.ttk.Combobox` | biblioteca estándar |
 
 ## Requisitos
 
 - Python 3.x
-- [PyQt5](https://pypi.org/project/PyQt5/) (`>=5.15`)
+- **Versión PyQt5:** [PyQt5](https://pypi.org/project/PyQt5/) (`>=5.15`) — `pip install -r requirements.txt`
+- **Versión Tkinter:** sin instalación extra, pero tu Python debe estar
+  compilado con soporte de Tk (`python -c "import tkinter"` debe funcionar).
 
-## Instalación
+### Comprobar el entorno
+
+Confirma que el toolkit que quieres está disponible antes de ejecutar:
 
 ```bash
-pip install -r requirements.txt
+./testqt.sh   # comprueba que PyQt5 está instalado
+./testtk.sh   # comprueba el soporte de Tkinter (Tk)
 ```
 
-## Uso
+Ambos admiten un override de `PYTHON`, p. ej. `PYTHON=/usr/bin/python3 ./testtk.sh`.
 
-Importa `CubaProvinces_BoxGroup` desde `qt` y llama a `exec()`. Dos modos:
+## Ejemplos
 
-### Modo A — usa tus propios combo boxes
+El uso está documentado dentro de los scripts de [example/](example/):
 
-Pasa dos widgets `QComboBox` existentes. El grupo rellena el cuadro de provincias y enlaza el cuadro de municipios.
+| Script | Toolkit | Modo |
+|--------|---------|------|
+| [example/qt.example1.py](example/qt.example1.py) | PyQt5 | cuadros propios |
+| [example/qt.example2.py](example/qt.example2.py) | PyQt5 | cuadros creados por el grupo |
+| [example/tk.example1.py](example/tk.example1.py) | Tkinter | cuadros propios |
+| [example/tk.example2.py](example/tk.example2.py) | Tkinter | cuadros creados por el grupo |
 
-```python
-from PyQt5.QtWidgets import *
-from qt import *
+Ejecútalos **desde la raíz del proyecto** para que los imports `from qt`/`from tk`
+se resuelvan:
 
-app = QApplication([])
-root = QMainWindow()
-
-cb_provinces = QComboBox(root)
-cb_municipality = QComboBox(root)
-cb_provinces.setGeometry(0, 0, 200, 30)
-cb_municipality.setGeometry(0, 32, 200, 30)
-
-a = CubaProvinces_BoxGroup(provinceBox=cb_provinces, municipalityBox=cb_municipality)
-a.exec()
-
-root.show()
-app.exec_()
+```bash
+python example/qt.example1.py
+python example/qt.example2.py
+python example/tk.example1.py
+python example/tk.example2.py
 ```
-
-### Modo B — deja que el grupo cree los cuadros
-
-Pasa un widget `parent` y una `allignment`; el grupo crea y posiciona ambos combo boxes por ti.
-
-```python
-from PyQt5.QtWidgets import *
-from qt import *
-
-app = QApplication([])
-root = QMainWindow()
-
-a = CubaProvinces_BoxGroup(parent=root, allignment="row")
-a.exec()
-
-root.show()
-app.exec_()
-```
-
-Mira [qt.example1.py](qt.example1.py) (Modo A) y [qt.example2.py](qt.example2.py) (Modo B).
-
-## API
-
-### `CubaProvinces_BoxGroup(provinceBox=None, municipalityBox=None, parent=None, allignment="row")`
-
-| Parámetro | Tipo | Descripción |
-|-----------|------|-------------|
-| `provinceBox` | `QComboBox` | Cuadro existente para provincias (Modo A). |
-| `municipalityBox` | `QComboBox` | Cuadro existente para municipios (Modo A). |
-| `parent` | `QWidget` | Widget padre; si se define, el grupo crea ambos cuadros (Modo B). |
-| `allignment` | `str` | `"row"` (apilados) o `"column"` (lado a lado). Solo se usa en Modo B. |
-
-- `exec()` / `exec_()` — rellena el cuadro de provincias y conecta el enlace provincia→municipio.
-
-Comportamiento según los argumentos:
-
-- ambos cuadros definidos → provincias rellenadas, cuadro de municipios enlazado a la selección de provincia.
-- solo `provinceBox` → provincias rellenadas, sin enlace.
-- solo `municipalityBox` → se rellena la lista plana completa de municipios.
 
 ## Provincias incluidas
 
-Isla de la Juventud, Pinar del Río, Artemisa, La Habana, Mayabeque, Matanzas, Cienfuegos, Villa Clara, Sancti Spíritus, Ciego de Ávila, Camagüey, Las Tunas, Granma, Holguín, Santiago de Cuba, Guantánamo.
+<kbd>Isla de la Juventud</kbd> <kbd>Pinar del Río</kbd> <kbd>Artemisa</kbd> <kbd>La Habana</kbd> <kbd>Mayabeque</kbd> <kbd>Matanzas</kbd> <kbd>Cienfuegos</kbd> <kbd>Villa Clara</kbd> <kbd>Sancti Spíritus</kbd> <kbd>Ciego de Ávila</kbd> <kbd>Camagüey</kbd> <kbd>Las Tunas</kbd> <kbd>Granma</kbd> <kbd>Holguín</kbd> <kbd>Santiago de Cuba</kbd> <kbd>Guantánamo</kbd>
 
 ## Estructura del proyecto
 
 ```
-qt.py            CubaProvinces_BoxGroup (la clase pública)
+qt.py            CubaProvinces_BoxGroup (implementación PyQt5)
+tk.py            CubaProvinces_BoxGroup (implementación Tkinter)
 base/main.py     repositorio Provinces_Municipaly (datos provincia → municipio)
 base/municipality_*.py   una lista de municipios por provincia
-qt.example1.py   ejemplo Modo A
-qt.example2.py   ejemplo Modo B
+example/         scripts de ejemplo Modo A / Modo B para ambos toolkits
+testqt.sh        comprobación de disponibilidad de PyQt5
+testtk.sh        comprobación de disponibilidad de Tkinter
+requirements.txt fijado de la dependencia PyQt5
 ```
+
+---
+
+Creado por [@albertolicea00](https://github.com/albertolicea00)
