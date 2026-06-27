@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuba Provinces Selector - Windows XP Simulator</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.ico" />
+  <meta name="theme-color" content="#002a8f" />
+  <meta name="apple-mobile-web-app-title" content="Cuba Provinces" />
+  <meta name="application-name" content="Cuba Provinces Selector" />
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Bliss background image container -->
+  <div class="bliss-wallpaper" id="bliss-wallpaper"></div>
+
+  <div class="desktop" id="desktop">
+    <!-- Desktop Shortcut Icons -->
+    <div class="desktop-icons">
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-qt')">
+        <img class="desktop-icon-img" src="assets/icons/pyqt.webp" alt="PyQt5 App" />
+        <span class="desktop-icon-text" data-i18n="icon.pyqt">PyQt5 App</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-tk')">
+        <img class="desktop-icon-img" src="assets/icons/tkinter.webp" alt="Tkinter App" />
+        <span class="desktop-icon-text" data-i18n="icon.tkinter">Tkinter App</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-about')">
+        <img class="desktop-icon-img" src="assets/icons/about.webp" alt="About Project" />
+        <span class="desktop-icon-text" data-i18n="icon.about">About Project</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-inspector')">
+        <img class="desktop-icon-img" src="assets/icons/system-properties.webp" alt="System Properties" />
+        <span class="desktop-icon-text" data-i18n="icon.sysprops">System Properties</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-notepad')">
+        <img class="desktop-icon-img" src="assets/icons/source-code.webp" alt="Source Code" />
+        <span class="desktop-icon-text" data-i18n="icon.sourcecode">Source Code</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-display')">
+        <img class="desktop-icon-img" src="assets/icons/display.webp" alt="Display Settings" />
+        <span class="desktop-icon-text" data-i18n="icon.display">Display Settings</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="showXpError(t('error.mypc'))">
+        <img class="desktop-icon-img" src="assets/icons/my-computer.webp" alt="My Computer" />
+        <span class="desktop-icon-text" data-i18n="icon.mypc">My Computer</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="showXpError(t('error.recyclebin'))">
+        <img class="desktop-icon-img" src="assets/icons/recycle-bin-full.webp" alt="Recycle Bin" />
+        <span class="desktop-icon-text" data-i18n="icon.recyclebin">Recycle Bin</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="toggleWindow('win-ie')">
+        <img class="desktop-icon-img" src="assets/icons/ie.webp" alt="Internet Explorer" />
+        <span class="desktop-icon-text" data-i18n="icon.ie">Internet Explorer</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="showXpError(t('error.doom3'))">
+        <img class="desktop-icon-img" src="assets/icons/doom-3.webp" alt="Doom 3">
+        <span class="desktop-icon-text" data-i18n="icon.doom3">Doom 3</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" onclick="showXpError(t('error.noporbia'))">
+        <img class="desktop-icon-img" src="assets/icons/folder-open.webp" alt="folder-open">
+        <span class="desktop-icon-text" data-i18n="icon.noporbia">NoporMia</span>
+      </div>
+    </div>
+
+    <!-- Window 1: PyQt5 App Simulator (qt.py) -->
+    <div id="win-qt" class="win-window" style="width: 420px; height: 310px; top: 80px; left: 100px">
+      <div class="win-header" id="win-qt-header">
+        <div class="win-title">
+          <img src="assets/icons/pyqt.webp" alt="Qt" />
+          <span data-i18n="win.qt.title">Cuba Provinces - PyQt5 (qt.py)</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-qt')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-qt')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-qt')"></div>
+        </div>
+      </div>
+      <div class="win-body">
+        <div class="pyqt-app-inner">
+          <div class="pyqt-title-label" data-i18n="win.qt.heading">
+            Cuba Provinces Selection Group (Qt Mode)
+          </div>
+
+          <div class="pyqt-layout" id="pyqt-layout-root">
+            <!-- Dynamically populated via script.js -->
+          </div>
+
+          <div class="pyqt-status-panel">
+            <div style="font-weight: bold; color: #555555; margin-bottom: 2px" data-i18n="status.tuple">
+              selected property tuple:
+            </div>
+            <div id="selection-display-qt" style="
+                  font-family: &quot;Fira Code&quot;, monospace;
+                  font-size: 11px;
+                  color: #002e9c;
+                  font-weight: bold;
+                ">
+              (None, None)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 2: Tkinter App Simulator (tk.py) -->
+    <div id="win-tk" class="win-window" style="width: 420px; height: 310px; top: 180px; left: 180px">
+      <div class="win-header" id="win-tk-header">
+        <div class="win-title">
+          <img src="assets/icons/tkinter.webp" alt="Tk" />
+          <span data-i18n="win.tk.title">Cuba Provinces - Tkinter (tk.py)</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-tk')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-tk')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-tk')"></div>
+        </div>
+      </div>
+
+      <div class="win-menu-bar">
+        <div class="win-menu-item" onclick="logToConsole('Tkinter Menu: File option clicked.', 'info')"
+          data-i18n="menu.file">
+          File
+        </div>
+        <div class="win-menu-item" onclick="logToConsole('Tkinter Menu: Options clicked.', 'info')"
+          data-i18n="menu.options">
+          Options
+        </div>
+        <div class="win-menu-item" onclick="logToConsole('Tkinter Menu: Help clicked.', 'info')" data-i18n="menu.help">
+          Help
+        </div>
+      </div>
+
+      <div class="win-body">
+        <div class="tk-app-inner">
+          <div class="pyqt-title-label" data-i18n="win.tk.heading">
+            Cuba Provinces Selection Group (Tk Mode)
+          </div>
+
+          <div class="tk-layout" id="tk-layout-root">
+            <!-- Dynamically populated via script.js -->
+          </div>
+
+          <div class="tk-status-panel">
+            <div style="font-weight: bold; color: #555555; margin-bottom: 2px" data-i18n="status.tuple">
+              selected property tuple:
+            </div>
+            <div id="selection-display-tk" style="font-weight: bold">
+              (None, None)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 3: System Properties & Console (Settings) -->
+    <div id="win-inspector" class="win-window" style="width: 440px; height: 420px; top: 40px; right: 50px">
+      <div class="win-header" id="win-inspector-header">
+        <div class="win-title">
+          <img src="assets/icons/system-properties.webp" alt="" />
+          <span data-i18n="win.inspector.title">System Properties - CubaProvinces</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-inspector')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-inspector')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-inspector')"></div>
+        </div>
+      </div>
+      <div class="win-body" style="padding: 10px 6px 6px 6px">
+        <div class="dialog-container">
+          <!-- XP Tabs -->
+          <div class="dialog-tabs">
+            <div id="tab-props" class="dialog-tab active" onclick="switchDialogTab('props')" data-i18n="tab.config">
+              Configuration
+            </div>
+            <div id="tab-setter" class="dialog-tab" onclick="switchDialogTab('setter')" data-i18n="tab.setter">
+              Setter
+            </div>
+            <div id="tab-logs" class="dialog-tab" onclick="switchDialogTab('logs')" data-i18n="tab.logs">
+              Stdout Logs
+            </div>
+          </div>
+
+          <!-- Dialog Panels -->
+          <div class="dialog-panel" id="panel-props" style="display: flex">
+            <div class="dialog-group">
+              <span class="dialog-group-legend" data-i18n="group.syncopts">Synchronisation Options</span>
+              <div class="dialog-row" style="margin-top: 8px">
+                <label for="widget-mode" data-i18n="label.widgetmode">Widget Sync Mode:</label>
+                <select id="widget-mode" class="xp-select" onchange="changeMode()">
+                  <option value="both" data-i18n="mode.both">
+                    Mode A: Both Boxes (Caller Managed - Linked)
+                  </option>
+                  <option value="province_only" data-i18n="mode.province_only">
+                    Mode B: Province Box Only (Unlinked)
+                  </option>
+                  <option value="municipality_only" data-i18n="mode.municipality_only">
+                    Mode C: Municipality Box Only (Flat List)
+                  </option>
+                  <option value="parent_row" data-i18n="mode.parent_row">
+                    Mode D: Parent Built - Row Alignment
+                  </option>
+                  <option value="parent_col" data-i18n="mode.parent_col">
+                    Mode E: Parent Built - Column Alignment
+                  </option>
+                </select>
+              </div>
+              <p style="color: #555555; line-height: 1.4; margin-top: 8px" data-i18n="text.modereconstruct">
+                Changing this mode will reconstruct BOTH the PyQt5 widget and
+                the Tkinter widget.
+              </p>
+            </div>
+
+            <div class="dialog-group" style="flex: 1">
+              <span class="dialog-group-legend" data-i18n="group.framework">Framework Details</span>
+              <p style="line-height: 1.5; color: #333333" data-i18n-html="framework.qt">
+                <strong>PyQt5 version (qt.py):</strong> Operates using the Qt
+                signal/slot model (<span style="font-family: monospace">currentIndexChanged.connect</span>) to sync
+                lists.
+              </p>
+              <p style="line-height: 1.5; color: #333333; margin-top: 6px" data-i18n-html="framework.tk">
+                <strong>Tkinter version (tk.py):</strong> Operates using the
+                Tk virtual events system (<span
+                  style="font-family: monospace">bind("&lt;&lt;ComboboxSelected&gt;&gt;")</span>) to update values.
+              </p>
+            </div>
+          </div>
+
+          <div class="dialog-panel" id="panel-setter" style="display: none">
+            <div class="dialog-group">
+              <span class="dialog-group-legend" data-i18n="group.setter">Simulate Property Assignment</span>
+              <div class="dialog-row" style="margin-top: 8px">
+                <label for="muni-setter-val" data-i18n="label.targetmuni">Target Municipality:</label>
+                <select id="muni-setter-val" class="xp-select"></select>
+              </div>
+              <button class="xp-btn-control" onclick="runSetter()" style="margin-top: 6px; align-self: flex-end"
+                data-i18n="btn.assign">
+                Assign (.selected = value)
+              </button>
+            </div>
+            <p style="color: #666; line-height: 1.4; padding: 0 6px" data-i18n="text.setterexplain">
+              Assigning a municipality directly will find its containing
+              province, select it in the province dropdown, refresh the
+              municipality lists, and then select the target item.
+            </p>
+          </div>
+
+          <div class="dialog-panel" id="panel-logs" style="display: none; height: 100%">
+            <div class="xp-terminal bevel-in" id="terminal-logs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 4: Notepad Code Viewer (tk.py & qt.py) -->
+    <div id="win-notepad" class="win-window minimized" style="width: 560px; height: 420px; top: 120px; right: 280px">
+      <div class="win-header" id="win-notepad-header">
+        <div class="win-title">
+          <img src="assets/icons/source-code.webp" alt="" />
+          <span data-i18n="win.notepad.title">Notepad - Source Code Viewer</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-notepad')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-notepad')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-notepad')"></div>
+        </div>
+      </div>
+
+      <!-- Menu bar as Code Tabs -->
+      <div class="win-menu-bar">
+        <div class="win-menu-item" onclick="switchCodeTab('qt')" data-i18n="code.qt">
+          qt.py Code
+        </div>
+        <div class="win-menu-item" onclick="switchCodeTab('tk')" data-i18n="code.tk">
+          tk.py Code
+        </div>
+        <div class="win-menu-item" onclick="switchCodeTab('example-qt')" data-i18n="code.exampleqt">
+          Usage Example (Qt)
+        </div>
+        <div class="win-menu-item" onclick="switchCodeTab('example-tk')" data-i18n="code.exampletk">
+          Usage Example (Tk)
+        </div>
+        <div class="win-menu-item" onclick="copyCode()" style="margin-left: auto; font-weight: bold; color: #002e9c"
+          data-i18n="code.copy">
+          Copy Code
+        </div>
+      </div>
+
+      <div class="win-body" style="padding: 0; background-color: #ffffe1">
+        <div class="notepad-container">
+          <pre class="notepad-textarea" id="notepad-text"></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 5: Display Properties (Desktop Settings) -->
+    <div id="win-display" class="win-window minimized" style="width: 380px; height: 420px; top: 140px; left: 140px">
+      <div class="win-header" id="win-display-header">
+        <div class="win-title">
+          <img src="assets/icons/display.webp" alt="" />
+          <span data-i18n="win.display.title">Display Properties</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-display')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-display')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-display')"></div>
+        </div>
+      </div>
+      <div class="win-body" style="padding: 10px 6px 6px 6px">
+        <div class="dialog-container">
+          <div class="dialog-tabs">
+            <div class="dialog-tab active" data-i18n="tab.desktop">
+              Desktop
+            </div>
+          </div>
+
+          <div class="dialog-panel" style="flex: 1; display: flex; flex-direction: column; gap: 8px">
+            <!-- Monitor preview area -->
+            <div style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  background: #e1dfd3;
+                  border: 1px solid #808080;
+                  padding: 10px;
+                  height: 130px;
+                ">
+              <!-- XP Monitor Frame -->
+              <div style="
+                    width: 140px;
+                    height: 95px;
+                    border: 4px solid #5f5f5f;
+                    border-radius: 6px;
+                    position: relative;
+                    background: #000;
+                    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+                  ">
+                <div id="monitor-preview" style="
+                      width: 100%;
+                      height: 100%;
+                      background-image: url(&quot;assets/wallpapers/bliss.webp&quot;);
+                      background-size: cover;
+                      background-position: center;
+                    "></div>
+                <!-- Stand -->
+                <div style="
+                      position: absolute;
+                      bottom: -10px;
+                      left: 52px;
+                      width: 28px;
+                      height: 8px;
+                      background: #808080;
+                      border: 1px solid #404040;
+                    "></div>
+                <div style="
+                      position: absolute;
+                      bottom: -14px;
+                      left: 40px;
+                      width: 52px;
+                      height: 4px;
+                      background: #808080;
+                      border-radius: 4px;
+                      border: 1px solid #404040;
+                    "></div>
+              </div>
+            </div>
+
+            <!-- List box for background selection -->
+            <div class="dialog-group" style="
+                  flex: 1;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 6px;
+                  padding: 6px 10px;
+                ">
+              <span class="dialog-group-legend" data-i18n="group.background">Background</span>
+              <label for="wallpaper-select" data-i18n="label.selectbg">Select a background image or color:</label>
+              <select id="wallpaper-select" class="xp-select" onchange="previewWallpaper()" size="5"
+                style="height: 80px">
+                <option value="assets/wallpapers/bliss.webp" selected data-i18n="wallpaper.bliss">
+                  Bliss (Default)
+                </option>
+                <option value="assets/wallpapers/ascent.webp">Ascent</option>
+                <option value="assets/wallpapers/autumn.webp">Autumn</option>
+                <option value="assets/wallpapers/azul.webp">Azul</option>
+                <option value="assets/wallpapers/crystal.webp">
+                  Crystal
+                </option>
+                <option value="assets/wallpapers/follow.webp">Follow</option>
+                <option value="assets/wallpapers/friend.webp">Friend</option>
+                <option value="assets/wallpapers/home.webp">Home</option>
+                <option value="assets/wallpapers/moon-flower.webp">
+                  Moon Flower
+                </option>
+                <option value="assets/wallpapers/peace.webp">Peace</option>
+                <option value="assets/wallpapers/power.webp">Power</option>
+                <option value="assets/wallpapers/purple-flower.webp">
+                  Purple Flower
+                </option>
+                <option value="assets/wallpapers/radiance.webp">
+                  Radiance
+                </option>
+                <option value="assets/wallpapers/red-moon-desert.webp">
+                  Red Moon Desert
+                </option>
+                <option value="assets/wallpapers/ripple.webp">Ripple</option>
+                <option value="assets/wallpapers/stonehenge.webp">
+                  Stonehenge
+                </option>
+                <option value="assets/wallpapers/tulips.webp">Tulips</option>
+                <option value="assets/wallpapers/vortec-space.webp">
+                  Vortec Space
+                </option>
+                <option value="assets/wallpapers/wind.webp">Wind</option>
+                <option value="assets/wallpapers/windows-xp.webp">
+                  Windows XP
+                </option>
+              </select>
+              <div style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: 2px;
+                  ">
+                <label for="wallpaper-color-picker" style="font-size: 11px" data-i18n="label.customcolor">Custom
+                  Color:</label>
+                <input type="color" id="wallpaper-color-picker" value="#008080" style="
+                      padding: 0;
+                      width: 45px;
+                      height: 18px;
+                      border: 1px solid #808080;
+                      cursor: pointer;
+                    " oninput="customColorSelected(this.value)" />
+              </div>
+            </div>
+
+            <!-- Controls buttons -->
+            <div style="
+                  display: flex;
+                  gap: 8px;
+                  justify-content: flex-end;
+                  margin-top: 4px;
+                ">
+              <button class="xp-btn-control" onclick="
+                    applyWallpaper();
+                    closeWindow('win-display');
+                  " data-i18n="btn.ok">
+                OK
+              </button>
+              <button class="xp-btn-control" onclick="closeWindow('win-display')" data-i18n="btn.cancel">
+                Cancel
+              </button>
+              <button class="xp-btn-control" onclick="applyWallpaper()" data-i18n="btn.apply">
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Window: About (renders web/README.md as markdown) -->
+    <div id="win-about" class="win-window" style="width: 540px; height: 470px; top: 60px; left: 230px">
+      <div class="win-header" id="win-about-header">
+        <div class="win-title">
+          <img src="assets/icons/about.webp" alt="" />
+          <span data-i18n="win.about.title">About - CubaProvinces XP</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-about')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-about')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-about')"></div>
+        </div>
+      </div>
+      <div class="win-body" style="">
+        <div class="about-body" id="about-content" data-i18n="about.loading">
+          Loading README…
+        </div>
+      </div>
+    </div>
+
+    <!-- Window 7: Internet Explorer (DDG Search) -->
+    <div id="win-ie" class="win-window minimized" style="width: 800px; height: 600px; top: 50px; left: 50px">
+      <div class="win-header" id="win-ie-header">
+        <div class="win-title">
+          <img src="assets/icons/ie.webp" alt="" />
+          <span>Internet Explorer</span>
+        </div>
+        <div class="win-header-controls">
+          <div class="xp-btn xp-btn-min" onclick="minimizeWindow('win-ie')"></div>
+          <div class="xp-btn xp-btn-max" onclick="toggleMaximize('win-ie')"></div>
+          <div class="xp-btn xp-btn-close" onclick="closeWindow('win-ie')"></div>
+        </div>
+      </div>
+      <div class="win-body" style="padding: 0; display: flex; flex-direction: column">
+        <!-- Address Bar -->
+        <div class="win-menu-bar" style="
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              padding: 4px 8px;
+              background-color: #ece9d8;
+              border-bottom: 1px solid #c0c0c0;
+            ">
+          <span style="font-size: 11px; color: #555">Address:</span>
+          <input type="text" value="https://duckduckgo.com/?q=albertolicea00" readonly style="
+                flex: 1;
+                font-family: Tahoma, sans-serif;
+                font-size: 11px;
+                padding: 2px 4px;
+                border: 1px solid #7f9db9;
+                background-color: #fff;
+              " />
+          <button class="xp-btn-control" onclick="window.open('https://duckduckgo.com/?q=albertolicea00', '_blank')"
+            data-i18n="ie.go">Go</button>
+        </div>
+
+        <!-- DuckDuckGo (like every major site) refuses to be framed via its
+               `frame-ancestors` CSP, so we show the classic IE6 error page and
+               offer to open the real search in a new tab. -->
+        <div style="
+              flex: 1;
+              overflow: auto;
+              background: #ffffff;
+              color: #000000;
+              padding: 22px 26px;
+              font-family: 'Times New Roman', Georgia, serif;
+            ">
+          <h1 style="font-size: 18px; font-weight: bold; margin-bottom: 14px;" data-i18n="ie.cannotdisplay">The page
+            cannot be displayed</h1>
+          <p style="font-size: 13px; line-height: 1.5; margin-bottom: 12px;" data-i18n="ie.body">The page you are
+            looking for is currently unavailable. The Web site might be experiencing technical difficulties, or you may
+            need to adjust your browser settings.</p>
+          <hr style="border: none; border-top: 1px solid #cccccc; margin: 12px 0;" />
+          <p style="font-size: 12px; line-height: 1.5; color: #333333; margin-bottom: 6px;" data-i18n="ie.suggest">
+            Please try the following:</p>
+          <ul style="font-size: 12px; line-height: 1.6; color: #333333; margin: 0 0 16px 22px;">
+            <li data-i18n="ie.suggest1">Click the Refresh button, or try again later.</li>
+            <li data-i18n="ie.suggest2">Make sure this is a genuine, non-bootleg copy of Windows.</li>
+          </ul>
+          <button class="xp-btn-control" onclick="window.open('https://duckduckgo.com/?q=albertolicea00', '_blank')"
+            data-i18n="ie.openbtn">Open the search in a new window →</button>
+          <p style="font-size: 11px; color: #999999; margin-top: 18px;" data-i18n="ie.dnserror">Cannot find server or
+            DNS Error — Internet Explorer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Windows XP Start Menu -->
+  <div id="start-menu" class="start-menu" style="display: none">
+    <!-- Blue Header with User Avatar -->
+    <div class="start-menu-header" onclick="
+          showXpError(t('error.switchuser'));
+          closeStartMenu();
+        " style="cursor: pointer" data-i18n-title="start.logoff" title="Log Off">
+      <div class="start-user-avatar">
+        <img src="assets/avatar.webp" style="width: 100%; height: 100%; object-fit: cover" />
+      </div>
+      <span class="start-username">albertolicea00</span>
+    </div>
+
+    <!-- Columns Section -->
+    <div class="start-menu-body">
+      <!-- Left side: Programs (White background) -->
+      <div class="start-menu-left">
+        <div class="start-menu-item" onclick="
+              toggleWindow('win-qt');
+              closeStartMenu();
+            ">
+          <img class="start-item-icon" src="assets/icons/pyqt.webp" alt="" />
+          <div class="start-item-text">
+            <strong data-i18n="start.qt.title">PyQt5 Province Selector</strong>
+            <span data-i18n="start.qt.sub">Launch PyQt5 GUI simulator</span>
+          </div>
+        </div>
+        <div class="start-menu-item" onclick="
+              toggleWindow('win-tk');
+              closeStartMenu();
+            ">
+          <img class="start-item-icon" src="assets/icons/tkinter.webp" alt="" />
+          <div class="start-item-text">
+            <strong data-i18n="start.tk.title">Tkinter Province Selector</strong>
+            <span data-i18n="start.tk.sub">Launch Tkinter GUI simulator</span>
+          </div>
+        </div>
+        <div class="start-menu-item" onclick="
+              toggleWindow('win-inspector');
+              closeStartMenu();
+            ">
+          <img class="start-item-icon" src="assets/icons/system-properties.webp" alt="" />
+          <div class="start-item-text">
+            <strong data-i18n="start.props.title">System Properties</strong>
+            <span data-i18n="start.props.sub">Configure widget mode & view logs</span>
+          </div>
+        </div>
+        <div class="start-menu-item" onclick="
+              toggleWindow('win-display');
+              closeStartMenu();
+            ">
+          <img class="start-item-icon" src="assets/icons/display.webp" alt="" />
+          <div class="start-item-text">
+            <strong data-i18n="start.disp.title">Display Properties</strong>
+            <span data-i18n="start.disp.sub">Change background wallpapers</span>
+          </div>
+        </div>
+        <div class="start-menu-item" onclick="
+              toggleWindow('win-notepad');
+              closeStartMenu();
+            ">
+          <img class="start-item-icon" src="assets/icons/source-code.webp" alt="" />
+          <div class="start-item-text">
+            <strong data-i18n="start.note.title">Notepad - Source Code</strong>
+            <span data-i18n="start.note.sub">View and copy Python drivers</span>
+          </div>
+        </div>
+
+        <!-- All Programs button and Submenu flyout -->
+        <div class="start-all-programs">
+          <span data-i18n="start.allprograms">My first Programs</span>
+          <span style="
+                color: #00aa00;
+                font-weight: bold;
+                margin-left: auto;
+                font-size: 8px;
+              ">▶</span>
+
+          <!-- Submenu -->
+          <div class="programs-submenu">
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/arff-generator',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>arff-generator (2021)</strong>
+              <span data-i18n="prog.arff.sub">Attribute-Relation File Format generator</span>
+            </div>
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/CubaProvincesQtTk',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>CubaProvincesQtTk (2022)</strong>
+              <span data-i18n="prog.cuba.sub">This</span>
+            </div>
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/pyMatrixClass',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>pyMatrixClass (2022)</strong>
+              <span data-i18n="prog.matrix.sub">Matrix operations class in Python</span>
+            </div>
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/CubaComunica-twitter-clone_practice',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>CubaComunica twitter-clone (2023)</strong>
+              <span data-i18n="prog.twitter.sub">My first web .. a twitter clone</span>
+            </div>
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/BCS-Segmentation-Models-Comparison',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>BCS SegmentationModels Compare</strong>
+              <span data-i18n="prog.bcs.sub">My Cuban Tesis</span>
+            </div>
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00/python-obj-dict-helpers',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>python-obj-dict-helpers (2024)</strong>
+              <span data-i18n="prog.helpers.sub">Object/dictionary helper utilities</span>
+            </div>
+            <hr class="programs-divider" />
+            <div class="programs-submenu-item" onclick="
+                  window.open(
+                    'https://github.com/albertolicea00?tab=repositories',
+                    '_blank',
+                  );
+                  closeStartMenu();
+                ">
+              <strong>More Repositories... (...)</strong>
+              <span data-i18n="prog.more.sub">View all projects on GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Folders and Settings (Light blue background) -->
+      <div class="start-menu-right">
+        <div class="start-right-item" onclick="
+              window.open(
+                'https://github.com/albertolicea00/CubaProvincesQtTk',
+                '_blank',
+              );
+              closeStartMenu();
+            ">
+          <img class="start-right-icon" src="assets/icons/folder.webp" alt="" />
+          <span data-i18n="start.right.repo">My GitHub Repo</span>
+        </div>
+        <div class="start-right-item" onclick="
+              window.open(
+                'https://raw.githubusercontent.com/albertolicea00/CubaProvincesQtTk/main/web/assets/data.json',
+                '_blank',
+              );
+              closeStartMenu();
+            ">
+          <img class="start-right-icon" src="assets/icons/disk.webp" alt="" />
+          <span data-i18n="start.right.download">Download data.json</span>
+        </div>
+        <hr class="start-divider" />
+        <div class="start-right-item" onclick="
+              toggleWindow('win-about');
+              closeStartMenu();
+            ">
+          <img class="start-right-icon" src="assets/icons/about.webp" alt="" />
+          <span data-i18n="start.right.about">About</span>
+        </div>
+        <div class="start-right-item" onclick="
+              toggleWindow('win-display');
+              closeStartMenu();
+            ">
+          <img class="start-right-icon" src="assets/icons/display.webp" alt="" />
+          <span data-i18n="start.right.theme">Theme</span>
+        </div>
+        <div class="start-right-item" onclick="
+              showXpError(t('error.controlpanel'));
+              closeStartMenu();
+            ">
+          <img class="start-right-icon" src="assets/icons/control-panel.webp" alt="" />
+          <span data-i18n="start.right.controlpanel">Control Panel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blue Footer with Turn Off -->
+    <div class="start-menu-footer">
+      <button class="start-footer-btn logoff" onclick="
+            showXpError(t('error.switchuser'));
+            closeStartMenu();
+          " data-i18n="start.logoff">
+        Log Off
+      </button>
+      <button class="start-footer-btn shutdown" onclick="turnOff()" data-i18n="start.turnoff">
+        Turn Off
+      </button>
+    </div>
+  </div>
+
+  <!-- "Unlicensed copy" style watermark (joke) -->
+  <div class="xp-watermark">
+    <div class="wm-title">CubaProvinces XP</div>
+    <div>Professional &middot; Build 2600</div>
+    <div class="wm-sub" data-i18n="wm.sub1">
+      Bootleg edition &mdash; handcrafted by @albertolicea00
+    </div>
+    <div class="wm-sub" data-i18n="wm.sub2">
+      this copy of Windows is definitely not genuine
+    </div>
+  </div>
+
+  <!-- Windows XP Taskbar -->
+  <div class="taskbar">
+    <div class="taskbar-left">
+      <!-- Green Start Button -->
+      <button class="start-button" onclick="toggleStartMenu(event)">
+        <svg viewBox="0 0 16 16" width="16" height="16">
+          <rect x="1" y="1" width="6" height="5" fill="#ff4d4d" />
+          <rect x="8" y="1" width="6" height="5" fill="#4dff4d" />
+          <rect x="1" y="7" width="6" height="5" fill="#4d4dff" />
+          <rect x="8" y="7" width="6" height="5" fill="#ffff4d" />
+        </svg>
+        <span>start</span>
+      </button>
+
+      <!-- Taskbar tabs -->
+      <div class="taskbar-tabs">
+        <div class="task-tab active" id="taskbar-win-qt" onclick="toggleWindow('win-qt')">
+          <img src="assets/icons/pyqt.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.qt">qt.py Selector</span>
+        </div>
+        <div class="task-tab active" id="taskbar-win-tk" onclick="toggleWindow('win-tk')">
+          <img src="assets/icons/tkinter.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.tk">tk.py Selector</span>
+        </div>
+        <div class="task-tab active" id="taskbar-win-inspector" onclick="toggleWindow('win-inspector')">
+          <img src="assets/icons/system-properties.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.inspector">System Properties</span>
+        </div>
+        <div class="task-tab active" id="taskbar-win-about" onclick="toggleWindow('win-about')">
+          <img src="assets/icons/about.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.about">About</span>
+        </div>
+        <div class="task-tab" id="taskbar-win-display" onclick="toggleWindow('win-display')">
+          <img src="assets/icons/display.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.display">Display Settings</span>
+        </div>
+        <div class="task-tab" id="taskbar-win-notepad" onclick="toggleWindow('win-notepad')">
+          <img src="assets/icons/source-code.webp" class="taskbar-tab-icon" alt="" />
+          <span data-i18n="task.notepad">Notepad - Code</span>
+        </div>
+        <div class="task-tab" id="taskbar-win-ie" onclick="toggleWindow('win-ie')">
+          <img src="assets/icons/ie.webp" class="taskbar-tab-icon" alt="" />
+          <span>Internet Explorer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification tray -->
+    <div class="taskbar-right">
+      <div class="system-tray">
+        <span id="tray-lang" class="tray-lang" onclick="toggleLanguage()" data-i18n-title="tray.lang.title"
+          title="Switch language (EN/ES)">EN</span>
+        <span id="tray-sound" class="tray-sound" onclick="toggleSound()" title="Sounds on (click to mute)">🔊</span>
+        <span class="tray-clock" id="tray-clock">10:00 PM · 1/1/2000</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portrait phones: ask the user to rotate (the XP desktop needs landscape) -->
+  <div id="rotate-notice" class="rotate-notice">
+    <div class="rotate-dialog">
+      <div class="rotate-titlebar">
+        <span data-i18n="rotate.title">Rotate your device</span>
+        <button class="rotate-close" onclick="dismissRotateNotice()" title="Close" aria-label="Close">
+          ✕
+        </button>
+      </div>
+      <div class="rotate-content">
+        <div class="rotate-icon">📱</div>
+        <p data-i18n="rotate.body">
+          CubaProvinces XP is best viewed in landscape. Please rotate your
+          device.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- XP "Turn off computer" dialog (replaces the native confirm) -->
+  <div id="shutdown-dialog" class="shutdown-overlay">
+    <div class="shutdown-panel">
+      <div class="shutdown-titlebar">
+        <span data-i18n="shutdown.title">Turn off computer</span>
+      </div>
+      <div class="shutdown-body">
+        <button class="shutdown-opt" onclick="standBy()">
+          <span class="shutdown-ic standby">&#9728;</span>
+          <span data-i18n="shutdown.standby">Stand By</span>
+        </button>
+        <button class="shutdown-opt" onclick="shutDown()">
+          <span class="shutdown-ic turnoff">&#9211;</span>
+          <span data-i18n="shutdown.turnoff">Turn Off</span>
+        </button>
+        <button class="shutdown-opt" onclick="restartComputer()">
+          <span class="shutdown-ic restart">&#8635;</span>
+          <span data-i18n="shutdown.restart">Restart</span>
+        </button>
+      </div>
+      <div class="shutdown-footer">
+        <button class="shutdown-cancel" onclick="closeShutdownDialog()" data-i18n="btn.cancel">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable Windows XP-style error dialog -->
+  <div id="xp-error" class="xp-error-overlay">
+    <div class="xp-error-panel">
+      <div class="xp-error-titlebar">
+        <span data-i18n="error.title">CubaProvinces XP</span>
+      </div>
+      <div class="xp-error-body">
+        <div class="xp-error-icon">&#10007;</div>
+        <div class="xp-error-msg" id="xp-error-msg"></div>
+      </div>
+      <div class="xp-error-footer">
+        <button class="xp-error-ok" onclick="closeXpError()" data-i18n="btn.ok">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language dictionary + switching (must load before script.js) -->
+  <script src="i18n.js"></script>
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
+</html>
